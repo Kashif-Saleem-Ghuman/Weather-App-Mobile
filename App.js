@@ -1,12 +1,29 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, ImageBackground } from 'react-native';
+import React, { useState } from 'react';
+import Search from './components/Search';
+import Weather from './components/Weather';
+
 
 export default function App() {
+  const [name, setName] = useState('')
+  const [background, setBackground] = useState('')
+
+  const cityHandler = (val) => {
+    setName(val)
+  }
+
+
+  const backgroundHandler = (bg) => setBackground(bg)
+
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ImageBackground style={styles.container} source={background} resizeMode='cover'>
+        <Search cityName={cityHandler} />
+        <Weather cityNameNew={name} backgroundimg={backgroundHandler} />
+      </ImageBackground>
+    </SafeAreaView>
   );
 }
 
@@ -14,7 +31,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 20,
+    marginTop: 20,
   },
 });
